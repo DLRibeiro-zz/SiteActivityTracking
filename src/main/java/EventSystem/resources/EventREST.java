@@ -7,7 +7,6 @@ import EventSystem.Exceptions.UnsupportedEventTypeException;
 import EventSystem.proto.EventMessageProto.EventMessage;
 import io.dropwizard.jersey.protobuf.ProtocolBufferMediaType;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.NotAcceptableException;
 import javax.ws.rs.POST;
@@ -22,6 +21,9 @@ public class EventREST {
 
   private EventHandler eventHandler;
 
+  public EventREST(){
+
+  }
   @Inject
   public EventREST(EventHandler eventHandler){
     this.eventHandler = eventHandler;
@@ -30,7 +32,7 @@ public class EventREST {
   @POST
   public Response registerEvent(EventMessage eventMessage) {
     try {
-      this.eventHandler.handle(eventMessage);
+      this.eventHandler.handleEvent(eventMessage);
       return Response.ok().build();
     } catch (UnsupportedEventTypeException e) {
       throw new NotAcceptableException(e.getMessage());

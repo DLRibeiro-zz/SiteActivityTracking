@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package EventSystem;
+option java_outer_classname = "EventMessageProto";
+
+message EventMessage {
+    
+    enum EventType {
+        CLICK = 0;
+        VIEW = 1;
+        IMPRESSION = 2;
+    }
+    
+    string user = 1;
+    string website = 2;
+    EventType eventType = 3;
+  }

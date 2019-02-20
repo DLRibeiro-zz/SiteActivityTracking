@@ -1,0 +1,3 @@
+appName: EventSystem
+eventType : CLICK
+operationLimit : 50

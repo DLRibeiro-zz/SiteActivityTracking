@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.2'
+    id 'application'
 }
 
 group 'SiteActivity'
@@ -12,6 +12,10 @@ repositories {
     mavenCentral()
 }
 
+project.ext {
+    configPath = "$rootProject.projectDir/config/"
+}
+
 dependencies {
     compile group: "io.dropwizard", name: "dropwizard-core", version: "1.2.0"
     compile 'com.google.protobuf:protobuf-java:3.6.1'
@@ -19,11 +23,20 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-intellij {
-    version '2018.3.4'
+mainClassName = "EventSystem.MainApp"
+
+
+run{
+    args 'server', configPath + 'app_config.yml'
 }
-patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+
+jar {
+    archiveName "app.jar"
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it)}}
+    manifest { attributes 'Main-Class' : mainClassName }
+}
+
+task downloadDependencies(type: Exec) {
+    configurations.testRuntime.files
+    commandLine 'echo', 'Downloaded all dependencies'
 }
