@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Class responsible for Handling each Event recieved throught the REST API
+ */
 public class EventHandler{
 
   private HashMap<User, List<BrowserEvent>> usersEventRecords;
@@ -30,8 +33,8 @@ public class EventHandler{
   }
 
   /**
-   * Handles a {@link EventMessage} recived from the {@link eventSystem.resources.EventREST}
-   * @param eventMessage
+   * Handles a {@link EventMessage} received from the {@link eventSystem.resources.EventREST}
+   * @param eventMessage, the Event received through the API
    * @throws UnsupportedEventTypeException
    * @throws OperationLimitException
    */
@@ -59,6 +62,12 @@ public class EventHandler{
 
   }
 
+  /**
+   * Handles each event, taking into consideration the pair formed by each User and Website
+   * @param browserEvent, the Event received through the API
+   * @param pairUserWebsite, the pair formed by the User and Website from the event
+   * @throws OperationLimitException, when the operation done by the user on the Website has reached it's limit
+   */
   private void handleEventUserWebsite(BrowserEvent browserEvent,
       Pair<User, Website> pairUserWebsite) throws OperationLimitException {
     List<BrowserEvent> records = usersWebsitesEventRecords.get(pairUserWebsite);
@@ -73,12 +82,23 @@ public class EventHandler{
     usersWebsitesEventRecords.replace(pairUserWebsite, records);
   }
 
+  /**
+   * Handles the events taking into account only the User
+   * @param browserEvent, the Event received through the API
+   * @param user
+   */
   private void handleEventUser(BrowserEvent browserEvent, User user) {
     List<BrowserEvent> records = usersEventRecords.get(user);
     records.add(browserEvent);
     usersEventRecords.replace(user, records);
   }
 
+  /**
+   * Handles the first event of the User
+   * @param browserEvent, the Event received through the API
+   * @param user, the User sending the event
+   * @param pairUserWebsite, the pair formed by the User and the Website from the Event
+   */
   private void handleFirstEvent(BrowserEvent browserEvent, User user,
       Pair<User, Website> pairUserWebsite) {
     List<BrowserEvent> records = new ArrayList<>();

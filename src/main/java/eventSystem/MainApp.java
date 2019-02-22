@@ -35,7 +35,7 @@ public class MainApp extends Application<EventSystemConfiguration> {
 
   private void buildRESTAPI(EventSystemConfiguration configuration, Environment environment) {
     String pathName = configuration.getEventType().toLowerCase();
-    Resource.Builder resourceBuilder = Resource.builder(EventREST.class).path(pathName);
+    Resource.Builder resourceBuilder = Resource.builder(EventREST.class).path("/"+pathName);
     int operationLimit = configuration.getOperationLimit();
     String eventType = configuration.getEventType();
     environment.jersey().register(resourceBuilder.build());

@@ -17,7 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 
-@Path("/{event}/")
+@Path("/{event}")
 @Produces(ProtocolBufferMediaType.APPLICATION_PROTOBUF)
 public class EventREST {
 

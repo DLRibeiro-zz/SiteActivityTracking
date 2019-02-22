@@ -11,6 +11,9 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
+/**
+ * Healtchecks that sends an empty request to verify if the server is up and responding with the right code
+ */
 public class EventRESTHealthCheck extends HealthCheck {
 
   private Invocation.Builder pingRequestBuilder;

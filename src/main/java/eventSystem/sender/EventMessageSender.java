@@ -9,6 +9,9 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 
+/**
+ * Class responsible to send a HTTP Request with Protobuf message to the URL
+ */
 public class EventMessageSender {
 
   public static void main(String[] args) {
