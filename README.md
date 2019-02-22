@@ -88,7 +88,8 @@ The service is now running, but to be able to send a request to it, get the URL 
      
  These commands will return the URL to access each service.
  
-###Testing
+##Testing
+
 After the services are exposed through Minikube, you can run the sender.jar with the parameters to test the API.
 
      java -jar sender.jar <URL>/<EVENT_TYPE lower case> user www.website.com <EVENT_CODE>
