@@ -20,10 +20,12 @@ dependencies {
     compile group: "io.dropwizard", name: "dropwizard-core", version: "1.2.0"
     compile 'com.google.protobuf:protobuf-java:3.6.1'
     compile group: "io.dropwizard.modules", name:"dropwizard-protobuf", version:"1.3.7-1"
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-mainClassName = "EventSystem.MainApp"
+mainClassName = "eventSystem.MainApp"
 
 
 run{
@@ -34,6 +36,12 @@ jar {
     archiveName "app.jar"
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it)}}
     manifest { attributes 'Main-Class' : mainClassName }
+}
+
+task senderJar(type: Jar){
+    archiveName "sender.jar"
+    from { configurations.compile.collect { it.isDirectory()? it: zipTree(it)}}
+    manifest { attributes 'Main-class' : "eventSystem.sender.EventMessageSender"}
 }
 
 task downloadDependencies(type: Exec) {

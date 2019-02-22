@@ -4,17 +4,20 @@ services:
     build:
       context : .
       dockerfile : click.Dockerfile
+    image: clickservice:eventsystem
     ports:
       - "8080:8080"
   viewservice:
     build:
       context : .
       dockerfile: view.Dockerfile
+    image: viewservice:eventsystem
     ports:
       - "9000:8080"
   impressionservice:
     build:
       context: .
       dockerfile: impression.Dockerfile
+    image: impressionservice:eventsystem
     ports:
       - "9020:8080"
