@@ -8,6 +8,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
 
 /**
  * Class responsible to send a HTTP Request with Protobuf message to the URL
@@ -32,7 +33,8 @@ public class EventMessageSender {
               .toLowerCase());
       Invocation.Builder invocationBuilder = webTarget
           .request(ProtocolBufferMediaType.APPLICATION_PROTOBUF);
-      invocationBuilder.post(Entity.entity(eventMessage,ProtocolBufferMediaType.APPLICATION_PROTOBUF));
+      Response response = invocationBuilder.post(Entity.entity(eventMessage,ProtocolBufferMediaType.APPLICATION_PROTOBUF));
+      System.out.println(response.getStatus());
     } catch (Exception e) {
       e.printStackTrace();
     }
